@@ -1,9 +1,9 @@
 import React, { useReducer } from 'react';
+import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
 import setAuthToken from '../../utils/setAuthToken';
-
-import axios from 'axios';
+import API from '../../config/api'
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -33,7 +33,7 @@ const AuthState = (props) => {
     }
 
     try {
-      const res = await axios.get('./api/auth');
+      const res = await axios.get(`${API}/auth`);
       console.log(res.data);
       dispatch({
         type: USER_LOADED,
@@ -55,7 +55,7 @@ const AuthState = (props) => {
     };
 
     try {
-      const res = await axios.post('api/users', formData, config);
+      const res = await axios.post(`${API}/users`, formData, config);
 
       dispatch({
         type: REGISTER_SUCCESS,
@@ -80,7 +80,7 @@ const AuthState = (props) => {
     };
 
     try {
-      const res = await axios.post('api/auth', formData, config);
+      const res = await axios.post(`${API}/auth`, formData, config);
 
       dispatch({
         type: LOGIN_SUCCESS,
